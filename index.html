@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="music-player">
+        <!-- Header -->
+        <header class="player-header">
+            <h1><i class="fas fa-music"></i> Music Player</h1>
+        </header>
+
+        <!-- Main Player Section -->
+        <div class="player-container">
+            <!-- Album Art Section -->
+            <div class="album-art-section">
+                <div class="album-art">
+                    <img id="album-cover" src="https://via.placeholder.com/300x300/667eea/ffffff?text=No+Song" alt="Album Cover">
+                    <div class="vinyl-effect"></div>
+                    <canvas id="visualizer" class="visualizer"></canvas>
+                </div>
+                <div class="loading-spinner" id="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading...</p>
+                </div>
+            </div>
+
+            <!-- Song Information -->
+            <div class="song-info">
+                <h2 id="song-title">Select a song to play</h2>
+                <p id="song-artist">Unknown Artist</p>
+                <p id="song-album">Unknown Album</p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <span id="current-time">0:00</span>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                    <input type="range" id="progress-slider" min="0" max="100" value="0" class="slider">
+                </div>
+                <span id="duration">0:00</span>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="controls">
+                <button id="prev-btn" class="control-btn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button id="play-btn" class="control-btn play-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="next-btn" class="control-btn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button id="shuffle-btn" class="control-btn">
+                    <i class="fas fa-random"></i>
+                </button>
+                <button id="repeat-btn" class="control-btn">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+
+            <!-- Volume Control -->
+            <div class="volume-container">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="volume-slider" min="0" max="100" value="50" class="slider volume-slider">
+                <i class="fas fa-volume-up"></i>
+            </div>
+        </div>
+
+        <!-- Playlist Section -->
+        <div class="playlist-section">
+            <div class="playlist-header">
+                <h3><i class="fas fa-list"></i> Playlist</h3>
+                <div class="playlist-controls">
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search songs..." class="search-input">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <input type="file" id="file-input" accept="audio/*" multiple style="display: none;">
+                    <button id="add-songs-btn" class="btn-secondary">
+                        <i class="fas fa-plus"></i> Add Songs
+                    </button>
+                    <button id="clear-playlist-btn" class="btn-secondary">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+            <div class="drop-zone" id="drop-zone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & Drop music files here or click "Add Songs"</p>
+            </div>
+            <div class="playlist" id="playlist">
+                <!-- Demo content - will be replaced when real songs are added -->
+                <div class="playlist-item demo-song" data-src="">
+                    <div class="song-details">
+                        <div class="song-name">🎵 Add your first song</div>
+                        <div class="song-meta">Upload audio files to get started</div>
+                    </div>
+                    <div class="song-duration">--:--</div>
+                </div>
+                <div class="playlist-item demo-song" data-src="">
+                    <div class="song-details">
+                        <div class="song-name">🎧 Supports MP3, WAV, OGG</div>
+                        <div class="song-meta">Multiple audio formats supported</div>
+                    </div>
+                    <div class="song-duration">--:--</div>
+                </div>
+                <div class="playlist-item demo-song" data-src="">
+                    <div class="song-details">
+                        <div class="song-name">🔍 Search & organize</div>
+                        <div class="song-meta">Find songs quickly in your playlist</div>
+                    </div>
+                    <div class="song-duration">--:--</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio Element -->
+        <audio id="audio" preload="metadata"></audio>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-music"></i> Welcome to Music Player</h3>
+            <p>Start by adding your favorite songs to create your personal playlist!</p>
+            <div class="modal-features">
+                <div class="feature">
+                    <i class="fas fa-headphones"></i>
+                    <span>High Quality Audio</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-random"></i>
+                    <span>Shuffle & Repeat</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Responsive Design</span>
+                </div>
+            </div>
+            <button id="modal-add-btn" class="btn-primary">
+                <i class="fas fa-plus"></i> Add Your First Song
+            </button>
+        </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="toast error-toast">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span id="error-message"></span>
+        <button class="toast-close">&times;</button>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="toast success-toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="success-message"></span>
+        <button class="toast-close">&times;</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

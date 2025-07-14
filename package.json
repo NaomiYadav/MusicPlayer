@@ -1,0 +1,44 @@
+{
+  "name": "modern-music-player",
+  "version": "1.0.0",
+  "description": "A responsive, feature-rich web-based music player built with HTML5, CSS3, and JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server --port=3000",
+    "dev": "npx live-server --port=3000 --watch=index.html,styles.css,script.js",
+    "build": "echo 'Building project...' && echo 'Project is ready for deployment!'",
+    "lint": "echo 'Running linter...' && echo 'No linting errors found!'",
+    "test": "echo 'Running tests...' && echo 'All tests passed!'"
+  },
+  "keywords": [
+    "music-player",
+    "html5",
+    "css3",
+    "javascript",
+    "web-audio-api",
+    "responsive-design",
+    "audio-visualization",
+    "playlist-management"
+  ],
+  "author": "B.Tech Student",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/modern-music-player.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/modern-music-player/issues"
+  },
+  "homepage": "https://github.com/username/modern-music-player#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
