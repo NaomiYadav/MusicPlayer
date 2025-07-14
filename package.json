@@ -4,11 +4,13 @@
   "description": "A responsive, feature-rich web-based music player built with HTML5, CSS3, and JavaScript",
   "main": "index.html",
   "scripts": {
-    "start": "npx live-server --port=3000",
-    "dev": "npx live-server --port=3000 --watch=index.html,styles.css,script.js",
-    "build": "echo 'Building project...' && echo 'Project is ready for deployment!'",
+    "start": "npx live-server public --port=3000",
+    "dev": "npx live-server public --port=3000 --watch=public/index.html,public/styles.css,public/script.js",
+    "build": "echo 'Static site - copying to public folder' && xcopy *.html public\\ /Y 2>nul && xcopy *.css public\\ /Y 2>nul && xcopy *.js public\\ /Y 2>nul && echo 'Files ready for deployment in public/ directory'",
+    "preview": "npx live-server public --port=3001",
     "lint": "echo 'Running linter...' && echo 'No linting errors found!'",
-    "test": "echo 'Running tests...' && echo 'All tests passed!'"
+    "test": "echo 'Running tests...' && echo 'All tests passed!'",
+    "deploy": "vercel --prod"
   },
   "keywords": [
     "music-player",
